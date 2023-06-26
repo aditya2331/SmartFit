@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block main %}
+<h1 class="mx-3">My Favorites</h1>
+{% if exerciselist1 == [] %}
+    <div class="text-muted fw-lighter text-center" style="margin: 75px 50px 75px; font-size: 70px;">
+        There's nothing here! Go search for some exercises!
+    </div>
+{% else %}
+<div style="display: flex; flex-wrap: wrap; margin-bottom: 30px;" class="mx-3">
+    {% for exercise in exerciselist1 %}
+    <div class="card justify-content-end" style="
+            width: 20rem;
+            margin: 10px;
+            box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+            transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+            ">
+        <form action="/exerciselist">
+            <input type="hidden" value="{{ exercise.id }}" name="{{ exercise.id }}">
+            <img src="{{ exercise.gifUrl }}" style="max-width:100%; max-height:100%;" alt="exercise gif here">
+            <hr class="m-0" style="opacity: 0.2; height: 0.5px;">
+            <div class="card-body">
+                <h4>
+                    {{ exercise.name }}
+                    {% if exercise.favorited == 'true' %}
+                    <i id="heart" class="fa-solid fa-heart fa-sm" style="color: red; cursor: pointer; margin-left: 2px;"></i>
+                    {% else %}
+                    <i id="heart" class="fa-regular fa-heart fa-sm" style="color: red; cursor: pointer; margin-left: 2px;"></i>
+                    {% endif %}
+                    <span class="text-muted fw-light" style="font-size: 22px;">
+                        {{ exercise.favorites }}
+                    </span>
+                </h4>
+                <div class="cardtag">
+                    <button type="submit" class="badge rounded-pill bg-tag1 stretched-link">{{ exercise.bodyPart
+                        }}</button>
+                    <span class="badge rounded-pill bg-tag2">{{ exercise.target }}</span>
+                    <span class="badge rounded-pill bg-tag3">{{ exercise.equipment }}</span>
+                </div>
+                <div class="mt-2">
+                    <h4>
+                        <span id="fav{{ exercise.id }}" class="badge">{{ exercise.rating }}</span>
+                        <span class="float-end text-muted mt-1">
+                            {{ exercise.commentcount }}
+                            <i class="fa-regular fa-comment"></i>
+                        </span>
+                    </h4>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+                if ($('#fav{{ exercise.id}}').html() == 0) {
+                    $('#fav{{ exercise.id}}').addClass('bg-secondary');
+                }
+                else {
+                    var rating_{{ exercise.id }} = $('#fav{{ exercise.id}}').html();
+                    rating_{{ exercise.id }} = 95 - (rating_{{ exercise.id }} - 1) * 23.75;
+                    var bg = 'hsl(' + rating_{{ exercise.id }} + ', 83%, 45%)';
+                    $('#fav{{ exercise.id}}').css('background-color', bg);
+                }
+        });
+    </script>
+    {% endfor %}
+</div>
+{% endif %}
+<h1 class="mx-3">Exercises you've Rated</h1>
+{% if exerciselist2 == [] %}
+<div class="text-muted fw-lighter text-center" style="margin: 175px 50px 0px; font-size: 80px;">
+        There's nothing here! Go search for some exercises!
+    </div>
+{% else %}
+<div style="display: flex; flex-wrap: wrap; margin-bottom: 30px;" class="mx-3">
+    {% for exercise in exerciselist2 %}
+    <div class="card justify-content-end" style="
+            width: 20rem;
+            margin: 10px;
+            box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+            transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+            ">
+        <form action="/exerciselist">
+            <input type="hidden" value="{{ exercise.id }}" name="{{ exercise.id }}">
+            <img src="{{ exercise.gifUrl }}" style="max-width:100%; max-height:100%;" alt="exercise gif here">
+            <hr class="m-0" style="opacity: 0.2; height: 0.5px;">
+            <div class="card-body">
+                <h4>
+                    {{ exercise.name }}
+                    {% if exercise.favorited == 'true' %}
+                    <i id="heart" class="fa-solid fa-heart fa-sm" style="color: red; cursor: pointer; margin-left: 2px;"></i>
+                    {% else %}
+                    <i id="heart" class="fa-regular fa-heart fa-sm" style="color: red; cursor: pointer; margin-left: 2px;"></i>
+                    {% endif %}
+                    <span class="text-muted fw-light" style="font-size: 22px;">
+                        {{ exercise.favorites }}
+                    </span>
+                </h4>
+                <div class="cardtag">
+                    <button type="submit" class="badge rounded-pill bg-tag1 stretched-link">{{ exercise.bodyPart
+                        }}</button>
+                    <span class="badge rounded-pill bg-tag2">{{ exercise.target }}</span>
+                    <span class="badge rounded-pill bg-tag3">{{ exercise.equipment }}</span>
+                </div>
+                <div class="mt-2">
+                    <h4>
+                        <span id="rate{{ exercise.id }}" class="badge">{{ exercise.rating }}</span>
+                        <span class="float-end text-muted mt-1">
+                            {{ exercise.commentcount }}
+                            <i class="fa-regular fa-comment"></i>
+                        </span>
+                    </h4>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+                if ($('#rate{{ exercise.id}}').html() == 0) {
+                    $('#rate{{ exercise.id}}').addClass('bg-secondary');
+                }
+                else {
+                    var rating_{{ exercise.id }} = $('#rate{{ exercise.id }}').html();
+                    rating_{{ exercise.id }} = 95 - (rating_{{ exercise.id }} - 1) * 23.75;
+                    var bg = 'hsl(' + rating_{{ exercise.id }} + ', 83%, 45%)';
+                    $('#rate{{ exercise.id}}').css('background-color', bg);
+                }
+        });
+    </script>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

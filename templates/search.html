@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Search
+{% endblock %}
+
+{% block main %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        {% for bodypart in bodyparts %}
+        $("button[id = '{{bodypart}}']").click(function () {
+            var active = $("button[id = '{{bodypart}}']").hasClass('bodyparttag_active');
+            if (active == true) {
+                $("button[id = '{{bodypart}}']").removeClass('bodyparttag_active');
+                active = 'false';
+            }
+            else {
+                $("button[id = '{{bodypart}}']").addClass('bodyparttag_active');
+                active = 'true';
+            }
+            $("input[name='{{ bodypart }}']").val(active);
+        });
+        {% endfor %}
+        {% for equipment in equipment %}
+        $("button[id = '{{equipment}}']").click(function () {
+            var active = $("button[id = '{{equipment}}']").hasClass('equipmenttag_active');
+            if (active == true) {
+                $("button[id = '{{equipment}}']").removeClass('equipmenttag_active');
+                active = 'false';
+            }
+            else {
+                $("button[id = '{{equipment}}']").addClass('equipmenttag_active');
+                active = 'true';
+            }
+            $("input[name='{{ equipment }}']").val(active);
+        });
+        {% endfor %}
+    });
+</script>
+<div style="justify-content: center; display: flex;">
+<div class="filters mt-4 col-md-9 logincard p-5">
+    <h1 class="fw-semibold" style="font-size: 45px;">Choose from 1000+ exercises.</h1>
+    <div class="landing">
+        <div class="fw-bold fs-2" style="color: #d6b194">BODY PART</div>
+        <form action="/search">
+            <div style="flex-wrap: wrap; margin: 10px;">
+                {% for bodypart in bodyparts %}
+                <button type="button" class="bodyparttag"
+                    id="{{ bodypart }}">{{ bodypart }}</button>
+                <input type="hidden" name="{{ bodypart }}" value="false">
+                {% endfor %}
+            </div>
+            <div class="fw-bold fs-2" style="color: #9bb1ba">EQUIPMENT</div>
+            <div style="flex-wrap: wrap; margin: 10px;">
+                {% for equipment in equipment %}
+                <button type="button" class="equipmenttag"
+                    id="{{ equipment }}">{{ equipment }}</button>
+                <input type="hidden" name="{{ equipment }}" value="false">
+                {% endfor %}
+            </div>
+    </div>
+        <input autocomplete="off" autofocus class="form-control search" id="exercise" name="exercise" placeholder="Use the above filters and/or search for an exercise" type="text">
+        <button type="submit" class="searchbutton" style="margin-left: 8px; background-color: #c8b8d1">Search</button>
+    </form>
+</div>
+</div>
+{% endblock %}

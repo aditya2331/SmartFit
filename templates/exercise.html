@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{ params.name }}
+{% endblock %}
+
+{% block main %}
+<script>
+  $(document).ready(function () {
+    $("#heart").click(function () {
+      $('#form1').submit();
+    });
+    $("#toggleform").click(function () {
+      $('#fill2').attr('hidden', 'hidden');
+      $("#userRating").attr('hidden', 'hidden');
+      $('#rating').val('0');
+      $('#review').val('');
+      $("i[name='star']").removeClass('fa-solid');
+    });
+    $(".fa-star").click(function () {
+        $('#fill2').removeAttr('hidden');
+        $("#userRating").removeAttr('hidden');
+        $(this).prevAll().addBack().addClass('fa-solid');
+        $(this).nextAll().removeClass('fa-solid');
+        var x = '#star' + $(this).attr('id');
+        var rating = $(x).val();
+        $('#userRating').html(rating);
+        $("#rating").val(rating);
+        rating = 95 - (rating - 1) * 23.75;
+        var bg = 'hsl(' + rating + ', 83%, 45%)';
+        $('#userRating').css('background-color', bg);
+      });
+  });
+  $(document).ready(function () {
+      if ($('#exrating').html() == 0) {
+          $('#exrating').addClass('bg-secondary');
+      }
+      else {
+        var rating = $('#exrating').html();
+        rating = 95 - (rating - 1) * 23.75;
+        var bg = 'hsl(' + rating + ', 83%, 45%)';
+        $('#exrating').css('background-color', bg);
+      }
+    });
+</script>
+
+<div class="mb-3 mt-2" style="max-width: 100%;">
+  <div class="row g-0 mx-5">
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-5">
+      <img src="{{ params.gifUrl }}" style="max-width:100%; max-height:100%; box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);" alt="exercise gif here">
+    </div>
+    <div class="col-md-5">
+      <div style="flex-wrap: wrap;">
+        <form action="/favorite" method="post" id="form1">
+          <h1>
+            {{ params.name }}
+            {% if favstate == 'true' %}
+            <i title="click to favorite" id="heart" class="fa-solid fa-heart" style="color: red; cursor: pointer;"></i>
+            {% else %}
+            <i title="click to favorite" id="heart" class="fa-regular fa-heart" style="color: red; cursor: pointer;"></i>
+            {% endif %}
+            <span class="text-muted fw-light" style="font-size: 42px;">
+              {{ params.favorites }}
+          </span>
+          </h1>
+        </form>
+      </div>
+      <h1><span id="exrating" class="badge" style="border-radius: 10px;">{{ params.rating }}</span> <span class="fs-4 text-muted">based on {{ params.reviewcount }} ratings</span></h1>
+      <div>
+        <span class="badge rounded-pill bg-tag1 fs-3 mt-2">{{ params.bodyPart }}</span>
+        <span class="badge rounded-pill bg-tag2 fs-3 mt-2">{{ params.target }}</span>
+        <span class="badge rounded-pill bg-tag3 fs-3 mt-2">{{ params.equipment }}</span>
+      </div>
+      {% if rated == 'false' %}
+      <p>
+        <button class="mt-5 rate" id="toggleform" type="button" data-bs-toggle="collapse" data-bs-target="#addReview"
+          aria-expanded="false" aria-controls="addReview">
+          Rate Difficulty
+        </button>
+      </p>
+      {% else %}
+      <button type="button" class="mt-5 rate" disabled>Thanks for rating!</button>
+      {% endif %}
+    </div>
+  </div>
+  <form action="/rate" method="post" id="form2">
+    <hr>
+    <div class="collapse mx-5 mb-3" id="addReview">
+      <h4 style="flex-wrap: wrap;" class="my-3">
+        <i id="1" name="star" class="fa-regular fa-star fa-xl" style="cursor: pointer;"></i>
+        <input type="hidden" id="star1" name="1" value="1">
+        <i id="2" name="star" class="fa-regular fa-star fa-xl" style="cursor: pointer;"></i>
+        <input type="hidden" id="star2" name="2" value="2">
+        <i id="3" name="star" class="fa-regular fa-star fa-xl" style="cursor: pointer;"></i>
+        <input type="hidden" id="star3" name="3" value="3">
+        <i id="4" name="star" class="fa-regular fa-star fa-xl" style="cursor: pointer;"></i>
+        <input type="hidden" id="star4" name="4" value="4">
+        <i id="5" name="star" class="fa-regular fa-star fa-xl" style="cursor: pointer;"></i>
+        <input type="hidden" id="star5" name="5" value="5">
+        <span hidden id="userRating" class="badge"></span>
+        <input type="hidden" id="rating" name="rating">
+      </h4>
+      <div>
+        <div class="mb-3">
+          <textarea class="form-control" id="review" name="review" placeholder="(optional) Write a review..." rows="2"></textarea>
+        </div>
+        <button type="submit" hidden id="fill2" class="rate">Submit review</button>
+      </div>
+    </div>
+  </form>
+  {% if reviews != [] %}
+  <div class="mx-2">
+    <h2><u>Reviews</u></h2>
+    {% for review in reviews %}
+    <script>
+      $(document).ready(function () {
+        if ($('#rating_{{ review.username}}').html() == 0) {
+          $('#rating_{{ review.username}}').addClass('bg-secondary');
+        }
+        else {
+          var rating_{{ review.username }} = $('#rating_{{ review.username}}').html();
+          rating_{{ review.username }} = 95 - (rating_{{ review.username }} - 1) * 23.75;
+          var bg = 'hsl(' + rating_{{ review.username }} + ', 83%, 45%)';
+          $('#rating_{{ review.username}}').css('background-color', bg);
+        }
+      });
+    </script>
+      {% if username == review.username %}
+      <script>
+        $(document).ready(function () {
+          $("#delete").click(function () {
+            $("#delform").submit();
+          })
+        });
+      </script>
+    <div class="mx-3 review-box">
+      <form name="delete" id="delform" method="post" action="/delete">
+      <h4 style="color: green;">
+        You
+         <span class="text-muted fw-light fs-5">said:</span>
+        </h4>
+          <h3 class="ms-3">
+          <span id="rating_{{ review.username }}" class="badge me-1">{{ review.rating }}</span>
+          {{ review.review }}
+          <span class="float-end">
+            <i id="delete" title="delete" class="fa-solid fa-trash-can fa-xl me-4 align-top" style="color: gray; cursor: pointer"></i>
+          </span>
+        </h3>
+      </form>
+    </div>
+    {% else %}
+    <div class="mx-3 review-box">
+      <h4><span class="text-muted fw-light">user</span> {{ review.username }} <span class="text-muted fw-light fs-5">said:</span></h4>
+      <div>
+        <h3 class="ms-3">
+          <span id="rating_{{ review.username }}" class="badge me-1">{{ review.rating }}</span> {{ review.review }}
+        </h3>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+  {% else %}
+  <div class="mx-2">
+    <h2><u>Reviews</u></h2>
+    <div class="text-muted fw-lighter text-center mt-5 fs-2">
+      There's nothing here. Be the first to review this exercise!
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

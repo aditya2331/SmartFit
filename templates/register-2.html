@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block main %}
+<script>
+    $(document).ready(function () {
+        $("#register").click(function () {
+            $("#form").hide();
+            $("#loading").removeAttr('hidden');
+        })
+    });
+</script>
+<div hidden class="text-center" id="loading" style="margin-top: 200px;">
+    <div class="spinner-border text-secondary" style="width: 8rem; height: 8rem;" role="status">
+    </div>
+    <h1>Please wait for a moment, this usually takes some time...</h1>
+</div>
+<div id="form" style="justify-content: center; display: flex;">
+    <div class="row justify-content-center col-md-9 logincard">
+    <div class="col p-0" style="border-color: #dec8ad; border-style: solid; border-radius: 5px 0px 0px 5px; border-width: 1px 0px 1px 1px;">
+        <img src="https://img.freepik.com/free-vector/interracial-athletes-couple_603843-3088.jpg?t=st=1657218875~exp=1657219475~hmac=6d834e95943816d623684a5ef31eaf59fecfb6d898deefed674ca850bcf90365&w=1380" class="img-fluid rounded-start" alt="exercise">
+    </div>
+    <div class="col p-0" style="background-color: #FAF1E6; border-color: #dec8ad; border-style: solid; border-radius: 0px 5px 5px 0px; border-width: 1px;">
+        <div class="card-body text-center" style="margin-top: 50px;">
+        <h1 class="card-title" style="margin-bottom: 30px; color: #d9ba93; font-size: 60px;">Welcome to SmartFit!</h1>
+        <form action="/register" method="post">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-50 fs-5" style="border-radius: 15px;" id="username" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-50 fs-5" style="border-radius: 15px;" id="password" name="password" placeholder="Password" type="password">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-50 fs-5" style="border-radius: 15px;" id="confirmation" name="confirmation" placeholder="Confirm Password"
+                    type="password">
+            </div>
+            <button class="rate fs-3" id="register" type="submit">Register</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

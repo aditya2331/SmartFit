@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Search Results
+{% endblock %}
+
+{% block main %}
+<h1 class="mx-3">Search Results</h1>
+{% if exerciselist == [] %}
+    <div class="text-muted fw-lighter text-center" style="margin: 175px 50px 0px; font-size: 80px;">
+        No exercises found :( Try specifying less criteria
+    </div>
+{% else %}
+<div style="display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 30px;">
+    {% for exercise in exerciselist %}
+    <div class="card justify-content-end" style="
+        width: 20rem;
+        margin: 10px;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+        ">
+        <form action="/exerciselist">
+            <input type="hidden" value="{{ exercise.id }}" name="{{ exercise.id }}">
+            <img src="{{ exercise.gifUrl }}" style="max-width:100%; max-height:100%;" alt="exercise gif here">
+            <hr class="m-0" style="opacity: 0.2; height: 0.5px;">
+            <div class="card-body">
+                <h4>
+                    {{ exercise.name }}
+                    {% if exercise.favorited == 'true' %}
+                    <i id="heart" class="fa-solid fa-heart fa-sm"
+                        style="color: red; cursor: pointer; margin-left: 2px;"></i>
+                    {% else %}
+                    <i id="heart" class="fa-regular fa-heart fa-sm"
+                        style="color: red; cursor: pointer; margin-left: 2px;"></i>
+                    {% endif %}
+                    <span class="text-muted fw-light" style="font-size: 22px;">
+                        {{ exercise.favorites }}
+                    </span>
+                </h4>
+                <div class="cardtag">
+                    <button type="submit" class="badge rounded-pill bg-tag1 stretched-link">{{ exercise.bodyPart
+                        }}</button>
+                    <span class="badge rounded-pill bg-tag2">{{ exercise.target }}</span>
+                    <span class="badge rounded-pill bg-tag3">{{ exercise.equipment }}</span>
+                </div>
+                <div class="mt-2">
+                    <h4>
+                        <span id="{{ exercise.id }}diffRating" class="badge">{{ exercise.rating }}</span>
+                        <span class="float-end text-muted mt-1">
+                            {{ exercise.commentcount }}
+                            <i class="fa-regular fa-comment"></i>
+                        </span>
+                    </h4>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+                if ($('#{{ exercise.id}}diffRating').html() == 0) {
+                    $('#{{ exercise.id}}diffRating').addClass('bg-secondary');
+                }
+                else {
+                    var rating_{{ exercise.id }} = $('#{{ exercise.id}}diffRating').html();
+                    rating_{{ exercise.id }} = 95 - (rating_{{ exercise.id }} - 1) * 23.75;
+                    var bg = 'hsl(' + rating_{{ exercise.id }} + ', 83%, 45%)';
+                    $('#{{ exercise.id}}diffRating').css('background-color', bg);
+                }
+        });
+    </script>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,164 @@
+/* Size for brand */
+nav .navbar-brand {
+    font-size: xx-large;
+}
+
+.filters {
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+.filtertag {
+    border-radius: 10px;
+    margin: 3px;
+}
+
+.bg-tag1 {
+    background-color: #e6c5ac;
+    border: none;
+}
+
+.bg-tag2 {
+    background-color: #c8b8d1;
+}
+
+.bg-tag3 {
+    background-color: #b8cad1;
+}
+
+.cardtag {
+    font-size: 20px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+}
+
+.login {
+    margin-left: 270px;
+    margin-right: 270px;
+    margin-top: 100px;
+    padding: 130px;
+    border-radius: 30px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+}
+
+.search {
+    margin: 8px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.landing {
+    margin: 20px;
+}
+
+.invis {
+    opacity: 0;
+}
+
+.fa-star {
+    color: #d9ba93;
+}
+
+.review-box {
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 5px;
+    border-color: #dec8ad;
+    padding: 10px;
+    margin: 10px;
+    background-color: #FAF1E6;
+}
+
+.main {
+    background-color: #F9F9F9;
+}
+
+.rate {
+    background-color: #FAF1E6;
+    border: 1px solid #dec8ad;
+    border-radius: 10px;
+    padding: 0.375rem 0.75rem;
+    margin: 3px;
+    font-size: 20px;
+    color: #d9ba93;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.rate:hover:enabled {
+    color: white;
+    background-color: #d9ba93;
+}
+
+.bodyparttag {
+    color: #d6b194;
+    background-color: white;
+    border-color: #e6c5ac;
+    border-radius: 20px;
+    border: 1px solid;
+    padding: 0.375rem 0.75rem;
+    margin: 3px;
+    font-size: 1rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    display: inline-block;
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.bodyparttag_active {
+    color: white !important;
+    background-color: #e6c5ac !important;
+}
+
+.equipmenttag {
+    color: #9bb1ba;
+    background-color: white;
+    border-color: #b8cad1;
+    border-radius: 20px;
+    border: 1px solid;
+    padding: 0.375rem 0.75rem;
+    margin: 3px;
+    font-size: 1rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    display: inline-block;
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.equipmenttag_active {
+    color: white !important;
+    background-color: #b8cad1 !important;
+}
+
+.searchbutton {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.5;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: #c8b8d1;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    border-radius: 10px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.logincard {
+    background-color: #fff;
+    border: 1px transparent;
+    border-radius: 5px;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    margin-top: 50px;
+}
