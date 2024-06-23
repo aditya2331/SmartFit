@@ -1,4 +1,4 @@
-# CS50 Final Project: SmartFit
+# CS50 Final Project: SmartFit 💪
 ## Video Demo:  <https://youtu.be/Wa6rY7OiPxE>
 ## **Description**
 ### SmartFit is an online exercise resource built using Python (Flask), Javascript and SQL. Users can create an account, login and start searching for their next exercise. Data provided by the ExerciseDB API gives you access to over 1300 exercises with individual exercise data and detailed animated demonstrations.
